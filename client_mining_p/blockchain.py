@@ -122,7 +122,7 @@ class Blockchain(object):
         # return True or False
         guess = f'{block_string}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
-        return guess_hash[:6] == "000000"
+        return guess_hash[:3] == "000"
         # return guess_hash[:2] == "00"
 
     def valid_chain(self, chain):
@@ -209,6 +209,7 @@ def mine():
     last_block_string = json.dumps(last_block, sort_keys=True).encode()
     values = request.get_json()
     submitted_proof = values.get('proof')
+    print(last_block_string)
     print(submitted_proof)
     print(blockchain.valid_proof(last_block_string, submitted_proof))
     if blockchain.valid_proof(last_block_string, submitted_proof):
